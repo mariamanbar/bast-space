@@ -1,73 +1,119 @@
-const catsData = [
-  {
-    id: 1,
-    name: "Luna",
-    status: "resident",
-    statusText: "Forever a Bast Resident",
-    image:
-      "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    shortDesc:
-      "Found wandering near Webdieh, Luna was shy at first but now rules the roost.",
-    fullDesc:
-      "Luna was found wandering near Webdieh. She was shy at first but now rules the roost. She loves to sit on laptops while you work and has the loudest purr in the shop. She is the queen of Bast Space!",
-    moreImages: [
-      "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&w=200",
-      "https://images.unsplash.com/photo-1513245543132-31f507417b26?ixlib=rb-4.0.3&w=200",
-      "https://images.unsplash.com/photo-1561948955-570b270e7c36?ixlib=rb-4.0.3&w=200",
-    ],
-  },
-  {
-    id: 2,
-    name: "Mishmish",
-    status: "resident",
-    statusText: "Forever a Bast Resident",
-    image:
-      "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    shortDesc:
-      "Our resident ginger gentleman. Mishmish was rescued by Dr. Maysoun.",
-    fullDesc:
-      "Our resident ginger gentleman. Mishmish was rescued by Dr. Maysoun and is known for stealing sips of milkshakes when no one is looking. He loves chin scratches and sleeping in the sunny window spot.",
-    moreImages: [
-      "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&w=200",
-    ],
-  },
-  {
-    id: 3,
-    name: "Shadow",
-    status: "adoptable",
-    statusText: "Looking For a New Home",
-    image:
-      "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    shortDesc:
-      "A mysterious beauty who loves to observe from the high shelves.",
-    fullDesc:
-      "A mysterious beauty who loves to observe from the high shelves. Shadow is a testament to the patience of our rescue mission—from a scared stray to a confident queen. She is fully vaccinated and looking for a quiet home.",
-    moreImages: [
-      "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&w=200",
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&w=200",
-    ],
-  },
-  {
-    id: 4,
-    name: "Olive",
-    status: "adopted",
-    statusText: "Already Home",
-    image:
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    shortDesc:
-      "Olive found her forever family last month! She now lives happily in Jabal Amman.",
-    fullDesc:
-      "Olive was one of our sweetest rescues. She found her forever family last month! She now lives happily in Jabal Amman with two other cat siblings.",
-    moreImages: [
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&w=200",
-    ],
-  },
-];
-
 const grid = document.getElementById("cats-grid");
 const overlay = document.getElementById("modal-overlay");
 const btns = document.querySelectorAll(".filter-btn");
+let catsData = [];
 
+// --- 1. SETUP SUPABASE ---
+const SUPABASE_URL = "https://xjaixlmbqnuzkfywbshi.supabase.co";
+const SUPABASE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYWl4bG1icW51emtmeXdic2hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgwNzUyOTksImV4cCI6MjA4MzY1MTI5OX0.vJC9a_asScFHYEZVw1rm6PtisLMGRMKXt53N-OucPtE";
+
+// Safety check for library
+var supabase;
+if (typeof window.supabase !== "undefined") {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} else {
+  console.error("Supabase SDK not loaded.");
+  grid.innerHTML =
+    '<p style="text-align:center;">Unable to load content. Please refresh the page.</p>';
+}
+
+// --- 2. FETCH DATA ---
+async function fetchCats() {
+  if (!supabase) return;
+
+  // Show a clean loading message
+  grid.innerHTML =
+    '<p style="text-align:center; width:100%; color:#666;">Loading our furry friends...</p>';
+
+  try {
+    const { data, error } = await supabase
+      .from("cats")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (error) {
+      console.error("Database Error:", error);
+      grid.innerHTML =
+        '<p style="text-align:center; width:100%;">Sorry, we couldn\'t load the cats right now.</p>';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      grid.innerHTML =
+        '<p style="text-align:center; width:100%;">No cats found yet. Check back soon!</p>';
+      return;
+    }
+
+    // Success!
+    catsData = data;
+    renderCards("all");
+  } catch (err) {
+    console.error("Unexpected Error:", err);
+    grid.innerHTML =
+      '<p style="text-align:center; width:100%;">Something went wrong. Please check your connection.</p>';
+  }
+}
+
+// --- FETCH MENU IMAGE ---
+async function fetchMenuImage() {
+  if (!supabase) return;
+
+  try {
+    // Fetch the URL from the 'site_settings' table
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("setting_value")
+      .eq("setting_name", "menu_image_url") // Looks for the specific row
+      .single();
+
+    if (error) {
+      console.error("Error fetching menu image:", error);
+      return;
+    }
+
+    if (data && data.setting_value) {
+      const menuImg = document.getElementById("dynamic-menu-image");
+
+      // We add ?t=... to the end of the URL.
+      // This forces the browser to ignore its cache and always load the newest image.
+      const timestamp = new Date().getTime();
+      menuImg.src = `${data.setting_value}?t=${timestamp}`;
+    }
+  } catch (err) {
+    console.error("Unexpected error loading menu:", err);
+  }
+}
+
+// --- NEW: FETCH HERO IMAGE ---
+async function fetchHeroImage() {
+  if (!supabase) return;
+
+  try {
+      const { data, error } = await supabase
+          .from('site_settings')
+          .select('setting_value')
+          .eq('setting_name', 'hero_image_url')
+          .single();
+
+      if (error) {
+          console.error('Error fetching hero image:', error);
+          // Optional: Set a fallback image if DB fails
+          // document.querySelector('.hero').style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('FALLBACK_URL_HERE')";
+          return;
+      }
+
+      if (data && data.setting_value) {
+          const heroSection = document.querySelector('.hero');
+          // We must re-add the linear gradient in JS along with the new URL
+          heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${data.setting_value}')`;
+      }
+  } catch (err) {
+      console.error('Unexpected error loading hero:', err);
+  }
+}
+
+// --- 3. RENDER LOGIC ---
 function renderCards(filterType) {
   grid.innerHTML = "";
 
@@ -84,25 +130,34 @@ function renderCards(filterType) {
 
   filteredCats.forEach((cat) => {
     let badgeClass = "";
-    if (cat.status === "adoptable") badgeClass = "status-adoptable";
-    else if (cat.status === "resident") badgeClass = "status-resident";
-    else badgeClass = "status-adopted";
+    let statusText = "";
+
+    if (cat.status === "adoptable") {
+      badgeClass = "status-adoptable";
+      statusText = "Looking For a New Home";
+    } else if (cat.status === "resident") {
+      badgeClass = "status-resident";
+      statusText = "Forever a Bast Resident";
+    } else {
+      badgeClass = "status-adopted";
+      statusText = "Already Home";
+    }
 
     const card = document.createElement("div");
     card.className = "cat-card";
     card.onclick = () => openModal(cat.id);
 
     card.innerHTML = `
-                    <div class="cat-img-container">
-                        <img src="${cat.image}" alt="${cat.name}">
-                        <div class="status-badge ${badgeClass}">${cat.statusText}</div>
-                    </div>
-                    <div class="cat-info">
-                        <h3 class="cat-name">${cat.name}</h3>
-                        <p class="cat-story">${cat.shortDesc}</p>
-                        <a href="javascript:void(0)" class="read-story">READ STORY →</a>
-                    </div>
-                `;
+            <div class="cat-img-container">
+                <img src="${cat.image}" alt="${cat.name}">
+                <div class="status-badge ${badgeClass}">${statusText}</div>
+            </div>
+            <div class="cat-info">
+                <h3 class="cat-name">${cat.name}</h3>
+                <p class="cat-story">${cat.shortDesc}</p>
+                <a href="javascript:void(0)" class="read-story">READ STORY →</a>
+            </div>
+        `;
     grid.appendChild(card);
   });
 }
@@ -113,7 +168,7 @@ function filterCats(type) {
   renderCards(type);
 }
 
-// --- CAT MODAL LOGIC ---
+// --- 4. MODAL LOGIC ---
 function openModal(id) {
   const cat = catsData.find((c) => c.id === id);
   if (!cat) return;
@@ -124,20 +179,35 @@ function openModal(id) {
   document.getElementById("modal-desc").innerText = cat.fullDesc;
 
   const tagEl = document.getElementById("modal-tag");
-  tagEl.innerText = cat.statusText;
-  if (cat.status === "adoptable")
+  let statusText = "";
+
+  if (cat.status === "adoptable") {
     tagEl.style.backgroundColor = "var(--success-color)";
-  else if (cat.status === "resident")
+    statusText = "Looking For a New Home";
+  } else if (cat.status === "resident") {
     tagEl.style.backgroundColor = "var(--accent-color)";
-  else tagEl.style.backgroundColor = "var(--muted-color)";
+    statusText = "Forever a Bast Resident";
+  } else {
+    tagEl.style.backgroundColor = "var(--muted-color)";
+    statusText = "Already Home";
+  }
+  tagEl.innerText = statusText;
 
   const galleryGrid = document.getElementById("modal-gallery");
   galleryGrid.innerHTML = "";
 
-  cat.moreImages.forEach((imgUrl) => {
+  const allImages = [cat.image];
+  if (cat.moreImages && Array.isArray(cat.moreImages)) {
+    allImages.push(...cat.moreImages);
+  }
+
+  allImages.forEach((imgUrl) => {
     const thumb = document.createElement("img");
     thumb.src = imgUrl;
     thumb.className = "gallery-thumb";
+
+    if (imgUrl === mainImg.src) thumb.classList.add("active");
+
     thumb.onclick = function () {
       mainImg.src = imgUrl;
       document
@@ -147,8 +217,6 @@ function openModal(id) {
     };
     galleryGrid.appendChild(thumb);
   });
-
-  if (galleryGrid.firstChild) galleryGrid.firstChild.classList.add("active");
 
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -163,7 +231,7 @@ overlay.addEventListener("click", (e) => {
   if (e.target === overlay) closeModal();
 });
 
-// --- NEW MENU MODAL LOGIC ---
+// --- 5. MENU MODAL ---
 const menuLink = document.getElementById("menu-link");
 const menuOverlay = document.getElementById("menu-modal-overlay");
 
@@ -171,21 +239,21 @@ function openMenuModal() {
   menuOverlay.classList.add("open");
   document.body.style.overflow = "hidden";
 }
-
 function closeMenuModal() {
   menuOverlay.classList.remove("open");
   document.body.style.overflow = "auto";
 }
 
 menuLink.addEventListener("click", (e) => {
-  e.preventDefault(); // Stop anchor jump
+  e.preventDefault();
   openMenuModal();
 });
-
 menuOverlay.addEventListener("click", (e) => {
-  if (e.target === menuOverlay) {
-    closeMenuModal();
-  }
+  if (e.target === menuOverlay) closeMenuModal();
 });
 
-renderCards("all");
+// --- START APP ---
+
+fetchCats();
+fetchMenuImage(); 
+fetchHeroImage();

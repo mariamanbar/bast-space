@@ -1,108 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bast Space | Cats, Coffee & Coziness</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
-        <a href="#" class="logo">Bast Space 🐾</a>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#cats">Our Cats</a>
-            <a href="#visit">Visit</a>
-            <a href="#" id="menu-link">Menu</a>
-        </nav>
+      <a href="#" class="logo">Bast Space 🐾</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#cats">Our Cats</a>
+        <a href="#" id="menu-link">Menu</a>
+        <a href="#visit">Visit</a>
+      </nav>
     </header>
 
     <section class="hero">
-        <div>
-            <h1>Welcome to Bast Space</h1>
-            <p>Amman's vintage sanctuary for rescued cats, coffee lovers, and cozy vibes.</p>
-        </div>
+      <div>
+        <h1>Welcome to Bast Space</h1>
+        <p>
+          Amman's vintage sanctuary for rescued cats, coffee lovers, and cozy
+          vibes.
+        </p>
+      </div>
     </section>
 
     <section id="about" class="container">
-        <div class="about-grid">
-            <div class="about-text">
-                <h2>More Than Just a Cafe</h2>
-                <p>Located in the heart of Amman, <strong>Bast Space</strong> is a unique project founded by a veterinarian with a passion for animal welfare. It serves as a sanctuary where rescued cats are rehabilitated, loved, and given a safe space to thrive.</p>
-                <p>Whether you're looking to study in a vintage atmosphere, enjoy a delicious iced latte, or find your new best friend through adoption, our doors (and paws) are open.</p>
-                <p><em>"A place to relax, unwind, and experience the healing power of feline companionship."</em></p>
-            </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Cozy Cat Cafe Interior">
-            </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>More Than Just a Cafe</h2>
+          <p>
+            Located in the heart of Amman, <strong>Bast Space</strong> is a
+            unique project founded by a veterinarian with a passion for animal
+            welfare. It serves as a sanctuary where rescued cats are
+            rehabilitated, loved, and given a safe space to thrive.
+          </p>
+          <p>
+            Whether you're looking to study in a vintage atmosphere, enjoy a
+            delicious iced latte, or find your new best friend through adoption,
+            our doors (and paws) are open.
+          </p>
+          <p>
+            <em
+              >"A place to relax, unwind, and experience the healing power of
+              feline companionship."</em
+            >
+          </p>
         </div>
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            alt="Cozy Cat Cafe Interior"
+          />
+        </div>
+      </div>
     </section>
 
     <section id="cats" class="cats-section">
-        <h2 class="section-title">Meet Our Furry Residents</h2>
-        
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterCats('all')">Show All</button>
-            <button class="filter-btn" onclick="filterCats('adoptable')">Looking For a New Home</button>
-            <button class="filter-btn" onclick="filterCats('resident')">Forever Residents</button>
-            <button class="filter-btn" onclick="filterCats('adopted')">Already Home</button>
-        </div>
+      <h2 class="section-title">Meet Our Furry Residents</h2>
 
-        <div class="cats-grid" id="cats-grid">
-            </div>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterCats('all')">
+          Show All
+        </button>
+        <button class="filter-btn" onclick="filterCats('adoptable')">
+          Looking For a New Home
+        </button>
+        <button class="filter-btn" onclick="filterCats('resident')">
+          Forever Residents
+        </button>
+        <button class="filter-btn" onclick="filterCats('adopted')">
+          Already Home
+        </button>
+      </div>
+
+      <div class="cats-grid" id="cats-grid">
+        <p style="text-align: center; width: 100%">Loading our cats...</p>
+      </div>
     </section>
 
-    <section id="visit" class="container" style="text-align: center;">
-        <h2 style="font-family: var(--font-serif); color: var(--primary-color);">Visit Us</h2>
-        <p class="visit-subtitle">Come for the coffee, stay for the cats.</p>
-        <div style="margin-top: 2rem; font-size: 1.1rem;">
-            
-            <p>
-                <strong>📍 Location:</strong>  
-                <a href="https://www.google.com/maps/place/Bast+Space/@31.9564984,35.9277599,17z/data=!3m1!4b1!4m6!3m5!1s0x151b5ff0ed9462bd:0x9ffba0357ac2096e!8m2!3d31.9564939!4d35.9303348!16s%2Fg%2F11jpkj_69v?entry=ttu&g_ep=EgoyMDI2MDEwNi4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" target="_blank" class="map-btn">Nemr Al-Edwan St, Amman Jordan ↗</a>
-            </p>
+    <section id="visit" class="container" style="text-align: center">
+      <h2 style="font-family: var(--font-serif); color: var(--primary-color)">
+        Visit Us
+      </h2>
+      <p class="visit-subtitle">Come for the coffee, stay for the cats.</p>
+      <div style="margin-top: 2rem; font-size: 1.1rem">
+        <p>
+          <strong>📍 Location:</strong>
+          <a
+            href="https://www.google.com/maps/place/Bast+Space/@31.9564984,35.9277599,17z/data=!3m1!4b1!4m6!3m5!1s0x151b5ff0ed9462bd:0x9ffba0357ac2096e!8m2!3d31.9564939!4d35.9303348!16s%2Fg%2F11jpkj_69v?entry=ttu&g_ep=EgoyMDI2MDEwNi4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D"
+            target="_blank"
+            class="map-btn"
+            >Nemr Al-Edwan St, Amman Jordan ↗</a
+          >
+        </p>
 
-            <p><strong>⏰ Hours:</strong> Daily 4:00 PM - 12:00 AM</p>
-            <p><strong>🎟️ Entry:</strong> Includes a drink of your choice!</p>
-        </div>
+        <p><strong>⏰ Hours:</strong> Daily 4:00 PM - 12:00 AM</p>
+        <p><strong>🎟️ Entry:</strong> Includes a drink of your choice!</p>
+      </div>
     </section>
 
     <footer>
-        <p>Created with ❤️ for <a href="https://www.instagram.com/bast_space/?hl=en" target="_blank">Bast Space</a>
-        <p><small>
-               Follow us on Instagram for daily updates <br> phone: +962 7 9158 1544
-        </small></p>
+      <p>
+        Created with ❤️ for
+        <a href="https://www.instagram.com/bast_space/?hl=en" target="_blank"
+          >Bast Space</a
+        >
+      </p>
+      <p>
+        <small>
+          Follow us on Instagram for daily updates <a href="https://www.instagram.com/bast_space/" target="_blank" aria-label="Follow us on Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <br />
+          
+          <a href="tel:+962791581544" class="social-btn phone" aria-label="Call Us">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+            +962 7 9158 1544
+        </small>
+      </p>
     </footer>
 
     <div id="modal-overlay" class="modal-overlay">
-        <div class="cat-modal-content">
-            <div class="modal-left">
-                <img src="" id="modal-main-img" class="modal-main-img" alt="Cat Detail">
-            </div>
-            <div class="modal-right">
-                <span class="modal-close" onclick="closeModal()">×</span>
-                
-                <span id="modal-tag" class="modal-tag"></span>
-                <h2 id="modal-name" class="modal-name-title"></h2>
-                <p id="modal-desc" class="modal-desc-text"></p>
-                
-                <div class="gallery-title">More Photos:</div>
-                <div class="gallery-grid" id="modal-gallery">
-                </div>
-            </div>
+      <div class="cat-modal-content">
+        <div class="modal-left">
+          <img
+            src=""
+            id="modal-main-img"
+            class="modal-main-img"
+            alt="Cat Detail"
+          />
         </div>
+        <div class="modal-right">
+          <span class="modal-close" onclick="closeModal()">×</span>
+
+          <span id="modal-tag" class="modal-tag"></span>
+          <h2 id="modal-name" class="modal-name-title"></h2>
+          <p id="modal-desc" class="modal-desc-text"></p>
+
+          <div class="gallery-title">More Photos:</div>
+          <div class="gallery-grid" id="modal-gallery"></div>
+        </div>
+      </div>
     </div>
 
     <div id="menu-modal-overlay" class="modal-overlay">
-        <div class="menu-modal-content">
-            <span class="modal-close" onclick="closeMenuModal()">×</span>
-            <img src="menu.png" 
-                 alt="Bast Space Menu" 
-                 class="menu-image">
-        </div>
+      <div class="menu-modal-content">
+        <span class="modal-close" onclick="closeMenuModal()">×</span>
+        <img
+          id="dynamic-menu-image"
+          src=""
+          alt="Bast Space Menu"
+          style="width: 100%; height: auto; display: block"
+        />
+      </div>
     </div>
-
+    
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

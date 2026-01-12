@@ -54,8 +54,7 @@ nav a:hover {
 }
 
 .hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));  
   background-size: cover;
   background-position: center;
   height: 60vh;
@@ -88,7 +87,7 @@ nav a:hover {
   padding: 4rem 2rem;
 }
 
-/* --- NEW: Specific Adjustments for Visit Section --- */
+/* --- Specific Adjustments for Visit Section --- */
 #visit {
   padding-top: 1rem; /* Decreased upper margin (was 4rem) */
 }
@@ -276,7 +275,7 @@ nav a:hover {
   color: var(--accent-color);
 }
 
-/* --- NEW: Enhanced Map Button Style --- */
+/* --- Enhanced Map Button Style --- */
 .map-btn {
   display: inline-block;
   background-color: transparent; /* Transparent to look lighter */
@@ -473,26 +472,37 @@ nav a:hover {
   border-radius: 8px;
 }
 
-/* Responsive Modal */
-@media (max-width: 768px) {
-  .cat-modal-content {
-    flex-direction: column;
-    height: 90vh;
-    overflow-y: auto;
-  }
-  .modal-left {
-    height: 250px;
-    flex: none;
-  }
-  .modal-right {
-    flex: none;
-  }
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero h1 {
-    font-size: 2.5rem;
-  }
+/* --- Shared Social Button Styles --- */
+.social-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.65rem;
+  text-decoration: none;
+  margin: 0; /* Margins handled by container gap */
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Specific Hover: Instagram (Pink) */
+.social-btn.instagram:hover {
+  background-color: #d62976;
+  border-color: #d62976;
+  box-shadow: 0 5px 15px rgba(214, 41, 118, 0.4);
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* Specific Hover: Phone (Green) */
+.social-btn.phone:hover {
+  background-color: #25d366; /* WhatsApp/Phone Green */
+  border-color: #25d366;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+  transform: translateY(-3px) scale(1.1);
 }
 
 /* --- Footer --- */
@@ -506,4 +516,93 @@ footer {
 footer a {
   color: var(--accent-color);
   text-decoration: none;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media screen and (max-width: 768px) {
+  /* 1. Header & Navigation */
+  header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  nav a {
+    margin: 0; /* Remove side margins for even spacing */
+    font-size: 1rem;
+  }
+
+  /* 2. Hero Section */
+  .hero {
+    height: 50vh; /* Shorter on mobile */
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem; /* Smaller text */
+  }
+  
+  .hero p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  /* 3. About Section (Stack columns) */
+  .about-grid {
+    grid-template-columns: 1fr; /* 1 column instead of 2 */
+    gap: 2rem;
+  }
+  
+  .about-text h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  /* 4. Cats Grid */
+  .cats-grid {
+    gap: 1.5rem;
+  }
+  
+  .cat-card {
+    max-width: 100%; /* Full width on phone */
+  }
+
+  /* 5. Modals (Fix split view) */
+  .cat-modal-content {
+    flex-direction: column; /* Stack image on top of text */
+    height: 90vh; /* Allow scrolling within modal */
+    width: 95%;
+    overflow-y: scroll; /* Enable scrolling */
+  }
+
+  .modal-left {
+    flex: none;
+    height: 250px; /* Fixed height for image area */
+  }
+
+  .modal-right {
+    padding: 1.5rem;
+    overflow-y: visible; /* Let content flow naturally */
+  }
+
+  .modal-name-title {
+    font-size: 2rem;
+  }
+
+  /* 6. Footer */
+  footer {
+    padding: 2rem 1rem;
+  }
+  
+  .social-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
 }
