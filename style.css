@@ -605,4 +605,58 @@ footer a {
     height: 45px;
     font-size: 1.2rem;
   }
+
+  /* --- BIG CARD VIEW MODE --- */
+
+/* 1. Change Grid Layout */
+.cats-grid.big-view {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* 2 cards per row (Big!) */
+    gap: 3rem;
+    max-width: 1000px; /* Keep it centered */
+}
+
+/* 2. Adjust Card Dimensions */
+.cats-grid.big-view .cat-card {
+    max-width: 100%; /* Take up full space of the column */
+    display: flex;
+    flex-direction: row; /* Layout image and text Side-by-Side */
+    height: 250px; /* Fixed height for consistency */
+}
+
+/* 3. Make Image Bigger (Side by Side) */
+.cats-grid.big-view .cat-img-container {
+    width: 50%; /* Image takes half the card */
+    height: 100%;
+}
+
+/* 4. Make Text Smaller & Compact */
+.cats-grid.big-view .cat-info {
+    width: 50%;
+    padding: 1rem;
+    justify-content: center; /* Center text vertically */
+}
+
+.cats-grid.big-view .cat-name {
+    font-size: 1.4rem; /* Smaller Title */
+    margin-bottom: 0.3rem;
+}
+
+.cats-grid.big-view .cat-story {
+    font-size: 0.85rem; /* Smaller Body Text */
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Fix for Big View: Stack them again on phones */
+@media screen and (max-width: 768px) {
+    .cats-grid.big-view {
+        grid-template-columns: 1fr; /* 1 card per row */
+    }
+}
+
+  
 }

@@ -252,6 +252,25 @@ menuOverlay.addEventListener("click", (e) => {
   if (e.target === menuOverlay) closeMenuModal();
 });
 
+// --- VIEW TOGGLE LOGIC ---
+let isBigView = false;
+
+function toggleView() {
+    const grid = document.getElementById('cats-grid');
+    const btn = document.getElementById('view-toggle-btn');
+    
+    // Toggle the state variable
+    isBigView = !isBigView;
+
+    if (isBigView) {
+        grid.classList.add('big-view');
+        btn.innerText = "Normal View ⊟"; // Change icon to indicate "minimize"
+    } else {
+        grid.classList.remove('big-view');
+        btn.innerText = "Change View ⊞"; // Change icon back
+    }
+}
+
 // --- START APP ---
 
 fetchCats();
