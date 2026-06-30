@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false  # Allows all cells to finish to get full diagnostic feedback
+      matrix:
+        os: [ubuntu-latest, windows-latest]  # Task 2 matrix requirement
+        node-version: [20, 22]               # Run against multiple current LTS versions
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4 # Pinned version to prevent supply-chain flaws
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'  # Speeds up local execution runtime significantly
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Execute Automated Tests
+        run: npm test

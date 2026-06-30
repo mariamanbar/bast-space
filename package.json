@@ -1,0 +1,25 @@
+{
+  "name": "bast-space",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariamanbar/bast-space.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mariamanbar/bast-space/issues"
+  },
+  "homepage": "https://github.com/mariamanbar/bast-space#readme",
+  "devDependencies": {
+    "happy-dom": "^20.10.6",
+    "vitest": "^4.1.9"
+  }
+}
