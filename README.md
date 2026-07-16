@@ -1,6 +1,6 @@
 [![CI](https://github.com/mariamanbar/bast-space/actions/workflows/ci.yml/badge.svg)](https://github.com/mariamanbar/bast-space/actions/workflows/ci.yml)
 <div align="center">
-  <h1>🐾 Bast Space | Cat Cafe & Sanctuary </h1> 
+  <h1>🐾 Bast space | cat cafe & sanctuary </h1> 
   
   <p>
     A cozy, interactive digital introduction to the residents of Amman's vintage sanctuary.
@@ -16,18 +16,18 @@
 
 ---
 
-## 📖 About The Project
+## 📖 About the project
 
-This website was built as a digital tribute to **Bast Space**, a unique cafe and cat rescue in Amman, Jordan. It serves as a digital menu for customers to learn more about the cats roaming the cafe, including their background stories and adoption status.
+This project is a digital tribute to **Bast Space**, a unique cafe and cat rescue in Amman, Jordan. It serves as a digital menu for customers to learn more about the cats roaming the cafe, including their background stories and adoption status.
 
 ### ✨ Features
 * **Interactive Cat Gallery:** Click on any cat card to open a detailed modal with a photo gallery and backstory.
-* **Dynamic Filtering:** Sort the residents by their status ("Looking for a new home", "Forever Bast Resident", or "Already Home").
-* **Fully Responsive:** Looks great on desktop, and is optimized for mobile users scanning a QR code at the cafe tables.
+* **Dynamic Filtering:** Sort the residents by their status ("Looking for a new home," "Forever Bast Resident," or "Already Home)."
+* **Fully Responsive:** Looks great on desktop and the layout optimizes the interface for mobile users scanning a QR code at the cafe tables.
 
 ---
 
-## 📸 Sneak Peek
+## 📸 Sneak peek
 
 <div align="center">
   <img width="400" height="619" alt="Image" src="https://github.com/user-attachments/assets/c924cf62-6a7a-41cf-85e3-088447e413a6" />
@@ -36,16 +36,16 @@ This website was built as a digital tribute to **Bast Space**, a unique cafe and
 
 ---
 
-## 🛠️ Built With
+## 🛠️ Built with
 
-This project was built with vanilla web technologies to keep it lightweight, fast, and easy to maintain without complex build steps:
+This project uses vanilla web technologies to keep it lightweight, fast, and easy to maintain without complex build steps:
 
 * **HTML5** for structure
-* **CSS3** (Custom properties, Grid, Flexbox) for styling
+* **CSS3** (Custom properties, Grid, Flexible Box Layout) for styling
 * **Vanilla JavaScript** for modal logic and DOM manipulation
 
 ---
 
-## 🎁 A Gift for Bast Space
-This project was created with love to support local animal rescue efforts. Visit them in Amman for good coffee and great company! 
+## 🎁 A gift for Bast space
+This gift supports local animal rescue efforts. Visit them in Amman for good coffee and great company! 
 * **Instagram:** [@bast_space](https://www.instagram.com/bast_space/)
