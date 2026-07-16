@@ -30,3 +30,18 @@ jobs:
 
       - name: Execute Automated Tests
         run: npm test
+
+  lint-docs:
+    name: Lint Documentation (Vale)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Vale
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          vale_flags: "--config=.vale.ini"
+          files: '["README.md"]'
+          fail_on_error: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
