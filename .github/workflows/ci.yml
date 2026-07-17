@@ -12,15 +12,15 @@ jobs:
     strategy:
       fail-fast: false  # Allows all cells to finish to get full diagnostic feedback
       matrix:
-        os: [ubuntu-latest, windows-latest]  # Task 2 matrix requirement
+        os: [ubuntu-latest, windows-latest]
         node-version: [20, 22]               # Run against multiple current LTS versions
 
     steps:
       - name: Checkout Repository Code
-        uses: actions/checkout@v4 # Pinned version to prevent supply-chain flaws
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'  # Speeds up local execution runtime significantly
@@ -36,9 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Run Vale
-        uses: errata-ai/vale-action@reviewdog
+        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # v2.1.1
         with:
           vale_flags: "--config=.vale.ini"
           files: '["README.md"]'
