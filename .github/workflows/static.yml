@@ -32,7 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Setup Pages
-        uses: actions/configure-pages@983d7736d5b0dc72f8f437511394f4cda1a7e25a # v5.0.0
+        uses: actions/configure-pages@8d34a8b31eea89cc8227a9070e44daf230fbd95b # v5.0.0
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
