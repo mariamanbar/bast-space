@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false  # Allows all cells to finish to get full diagnostic feedback
       matrix:
-        os: [ubuntu-latest, windows-latest]  
+        os: [ubuntu-latest, windows-latest]
         node-version: [20, 22]               # Run against multiple current LTS versions
 
     steps:
